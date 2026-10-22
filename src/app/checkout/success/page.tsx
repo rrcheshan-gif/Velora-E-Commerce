@@ -112,10 +112,13 @@ function SuccessContent() {
               <div>
                 <span className="text-neutral-400 block mb-1">Payment Method</span>
                 <strong className="text-velora-black block font-semibold">
-                  Visa Infinite (Ending in 4242)
+                  {currentOrder.paymentMethod?.title || currentOrder.paymentMethod?.brand || 'Credit / Debit Card'}
                 </strong>
-                <span className="text-emerald-700 block mt-0.5 font-medium">
-                  Status: Settled & Cleared
+                <span className="text-neutral-500 block text-[11px] mt-0.5">
+                  {currentOrder.paymentMethod?.details || (currentOrder.paymentMethod?.last4 ? `Ending in •••• ${currentOrder.paymentMethod.last4}` : 'Authorized')}
+                </span>
+                <span className="text-emerald-700 block mt-0.5 font-medium text-[11px]">
+                  Status: {currentOrder.paymentMethod?.type === 'bank_wire' ? 'Awaiting Wire Remittance (48h Hold)' : 'Settled & Verified'}
                 </span>
               </div>
             </div>

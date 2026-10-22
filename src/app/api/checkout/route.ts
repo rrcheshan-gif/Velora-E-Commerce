@@ -7,7 +7,7 @@ import { generateOrderNumber, generateTrackingNumber } from '@/lib/utils';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { items, couponCode, shippingMethodId, customer, currencyCode = 'USD' } = body;
+    const { items, couponCode, shippingMethodId, customer, currencyCode = 'USD', paymentMethod: clientPaymentMethod } = body;
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json(
@@ -105,10 +105,12 @@ export async function POST(req: Request) {
       shippingCostUSD,
       taxUSD,
       totalUSD,
-      paymentMethod: {
+      paymentMethod: clientPaymentMethod || {
         type: 'credit_card',
         last4: '4242',
         brand: 'Visa Infinite',
+        title: 'Credit / Debit Card',
+        details: 'Ending in •••• 4242',
       },
       currency: currencyCode,
       currencyRate: 1.0,

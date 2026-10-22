@@ -141,9 +141,11 @@ export interface Order {
   taxUSD: number;
   totalUSD: number;
   paymentMethod: {
-    type: 'credit_card' | 'apple_pay' | 'paypal' | 'google_pay';
+    type: 'credit_card' | 'apple_pay' | 'google_pay' | 'paypal' | 'klarna' | 'bank_wire' | 'cash_on_delivery';
     last4?: string;
     brand?: string;
+    title?: string;
+    details?: string;
   };
   currency: string;
   currencyRate: number;
